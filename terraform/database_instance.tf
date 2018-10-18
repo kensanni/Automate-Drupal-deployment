@@ -12,7 +12,7 @@ data "aws_ami" "mysql" {
     values = ["hvm"]
   }
 }
-
+// Create the database instance
 resource "aws_instance" "database_instance" {
   ami   = "${data.aws_ami.mysql.id}"
   instance_type = "${var.instance_type}"

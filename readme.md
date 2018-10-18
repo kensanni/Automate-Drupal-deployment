@@ -1,20 +1,20 @@
 # Deploying and securing a Drupal and CiviCRM application on AWS
 
-This documentation below simply explain how I deploy and secure my drupal with civiCRM application on AWS.
+This documentation below simply explain how I deploy and secure my drupal with CiviCRM application on AWS.
 
 ## Tools used
 
 Below are the tools I used for deploying my drupal application
- - [`Terraform`](https://www.terraform.io/) - This is an infrastructure as code software by [`Hashicorp`](https://www.hashicorp.com/). It allows users to define a datacenter infrastructure in a high-level configuration language, from which it can create an execution plan to build the infrastructure in a service provider such as [`AWS`](https://aws.amazon.com), [`Google cloud platform`](http://cloud.google.com), [`Microsoft Azure`](https://azure.microsoft.com/en-us/?v=solutions-dropdown) e.t.c.
+ - [`Terraform`](https://www.terraform.io/) - This is an infrastructure as code software by [`Hashicorp`](https://www.hashicorp.com/). It allows users to define a data center infrastructure in a high-level configuration language, from which it can create an execution plan to build the infrastructure in a service provider such as [`AWS`](https://aws.amazon.com), [`Google cloud platform`](http://cloud.google.com), [`Microsoft Azure`](https://azure.microsoft.com/en-us/?v=solutions-dropdown) e.t.c.
  - [`Ansible`](https://www.ansible.com/) - This is an open source software that automates software provisioning, configuration management, and application deployment. Ansible connects via SSH, remote PowerShell or via other remote APIs.
 
  - [`Packer`](https://packer.io/) - This is an open source tool for creating identical machine images for multiple platforms from a single source configuration. Packer is lightweight, runs on every major operating system, and is highly performant, creating machine images for multiple platforms in parallel.
- - [`LetsEncrypt`](https://letsencrypt.org/) - This is a free, automated, and open Certificate Authority. I'm using this to generate SSL certificate for my site.
+ - [`LetsEncrypt`](https://letsencrypt.org/) - This is a free, automated and open Certificate Authority. I'm using this to generate a free SSL certificate for my application.
  - [`Nginx`](https://www.nginx.com/) - This is an open source software for web serving, reverse proxying, caching, load balancing, media streaming, and more. It started out as a web server designed for maximum performance and stability
- - [`Drupal`](https://www.drupal.org/) - Drupal is a free and open source content-management framework written in PHP and distributed under the GNU General Public License. Drupal provides a back-end framework for at least 2.3% of all web sites worldwide ranging from personal blogs to corporate, political, and government sites. Systems also use Drupal for [`knowledge management`](https://en.wikipedia.org/wiki/Knowledge_management) and for business collaboration.
+ - [`Drupal`](https://www.drupal.org/) - Drupal is a free and open source content management framework written in PHP and distributed under the GNU General Public License. Drupal provides a back-end framework for at least 2.3% of all websites worldwide ranging from personal blogs to corporate, political, and government sites. Systems also use Drupal for [`knowledge management`](https://en.wikipedia.org/wiki/Knowledge_management) and for business collaboration.
  - [`CiviCRM`](https://civicrm.org/) - This is a web-based, open source, internationalized suite of computer software for constituency relationship management, that falls under the broad rubric of [`customer relationship management`](https://en.wikipedia.org/wiki/Customer_relationship_management). It is specifically designed for the needs of non-profit, non-governmental, and advocacy groups, and serves as an association management system.
   
-   Basically, I'm using Packer to create a machine image with Ansible as the provisioner. A machine image is a single static unit that contains a pre-configured operating system and installed software which is used to quickly create new running machines. So I use Terraform to lauch an instance with the machine Image on AWS.
+   Basically, I'm using Packer to create a machine image with Ansible as the provisioner. A machine image is a single static unit that contains a pre-configured operating system and installed software which is used to quickly create new running machines. So I use Terraform to launch an instance with the machine Image on AWS.
 
 ## Prerequisites
 This walkthrough was run on a MacOS but irrespective of your OS, this guide assumes the following
@@ -25,7 +25,7 @@ This walkthrough was run on a MacOS but irrespective of your OS, this guide assu
 - AWS access and secret key
 
 ## Getting Started
-Follow the instruction below to setup this infrastructure on your AWS account.
+Follow the instruction below to set up this infrastructure on your AWS account.
 
 1. Clone the project into your local machine
     ```
@@ -37,7 +37,7 @@ Follow the instruction below to setup this infrastructure on your AWS account.
     export AWS_ACCESS_KEY= YOUR_AWS_ACCESS_KEY
     export AWS_SECRET_KEY= YOUR AWS_SECRET_KEY
     ```
-3.  Create a machine image for both the database and drupal application
+3.  Create a machine image for both the database and Drupal application
     
     **For the database image**
    
@@ -68,7 +68,7 @@ Follow the instruction below to setup this infrastructure on your AWS account.
         packer build database.json
         ```
 
-    **For the drupal application image**
+    **For the Drupal application image**
 
     1. cd into the drupalClient image directory
         ```
@@ -78,11 +78,11 @@ Follow the instruction below to setup this infrastructure on your AWS account.
         ```
           server_name your_domain_name.com;
         ```
-    3. create the drupal image by running the command below
+    3. create the Drupal image by running the command below
         ```
           packer build drupal.json
         ```
-4. Deploy the infrastructure to AWS with terraform. follow the step below to do that
+4. Deploy the infrastructure to AWS with terraform. Follow the step below to do that
 
     1. move into the terraform directory
         ```
@@ -94,11 +94,11 @@ Follow the instruction below to setup this infrastructure on your AWS account.
          secret_key = "Your aws_secret_key"
          public_key = "your public ssh key"
         ```
-        To generate a ssh key, run the command below
+        To generate an ssh key, run the command below
         ```
         ssh-keygen
         ```
-        Don't ever push this file or your AWS credentials to github.
+        Don't ever push this file or your AWS credentials to Github.
     3. Open the variables.tf and edit the `key_name` variable to the name of your public key as shown below
         ```
           variable "key_name" {
@@ -112,10 +112,10 @@ Follow the instruction below to setup this infrastructure on your AWS account.
 
     6. Run `terraform apply` to create the infrastructure on AWS.
 
-        This would  also print out the IP address of your database and drupal application on your terminal, Copy and paste the `Drupal instance DNS or IP address` into your browser and follow the instruction to setup drupal. Or you can login into aws console and click on the `US East (Ohio)` to see the details of your instance.
+        This would also print out the IP address of your database and Drupal application on your terminal, Copy and paste the `Drupal instance DNS or IP address` into your browser and follow the instruction to setup Drupal. Or you can log in into aws console and click on the `US East (Ohio)` to see the details of your instance.
 5. Install the `CiviCRM` modules. Follow the instructions below to do that
 
-     1. One your drupal homepage, click on `Modules` at the top navbar of your homepage
+     1. On your drupal homepage, click on `Modules` at the top navbar of your homepage
      2. click on the `Install new module` link
      3. paste the link below into the `Install from a URL` textbox
         ```
@@ -135,11 +135,11 @@ Follow the instruction below to setup this infrastructure on your AWS account.
 6. Setup SSL certificate for the domain. To set up HTTPS, ensure your IP address is mapped to your domain name then SSH into your server and run the command below
     
     ```
-    sudo certbot --nginx -d your_domain_name
+    sudo certbot --nginx -d your_domain_name -d www.your_domain_name
     ```
 7.  Modify the Drupal settings files so that Drupal views can use the CiviCRM database. Follow the steps below
         
-    1. Go to drupal homepage and click on `Modules` at the top navbar
+    1. Go to Drupal homepage and click on `Modules` at the top navbar
     2. click on `Install new module` link and paste the link below into the `Install from a  URL` text field to install `ctools` module
         ```
         https://ftp.drupal.org/files/projects/ctools-7.x-1.14.tar.gz
@@ -150,11 +150,11 @@ Follow the instruction below to setup this infrastructure on your AWS account.
         ```
     4. Enable the `ctools` module by selecting the `Chaos tools` options under the `CHAOS TOOL SUITE` section and save the configuration
 
-    5. Enable the `views` modules by selecting the `Views` options under `VIEWS` section and save the configuration.
+    5. Enable the `views` modules by selecting all the `Views` options under `VIEWS` section and save the configuration.
     
     6. Click on this [`Drupal view`](https://docs.civicrm.org/sysadmin/en/latest/integration/drupal/views/) to complete the setup.
     
-8. Backup the database and upload backup data to amazon S3 storage. Follow the steps below to do that
+8. Backup the database and upload backup data to Amazon S3 storage. Follow the steps below to do that
 
     1. SSH into the database instance
         ```
@@ -166,27 +166,27 @@ Follow the instruction below to setup this infrastructure on your AWS account.
         user = root
         password = Your MySQL root user's password
         ```
-    3. Create a new directory named backup
+    3. Create a new directory named backups
         ```
         mkdir backups
         ```
 
-    4. run the `crontab -e` command and paste the code code below
+    4. Run the `crontab -e` command and paste the code below
         ```
         57 23 * * * /usr/bin/mysqldump --defaults-extra-file=/home/ubuntu/.mylogin.cnf -u root --single-transaction --quick --lock-tables=false --all-databases > backups/full-backup-$(date +\%F).sql
         ```
 
         This means a backup would be created every day at 23:59 hours
-    5. To deploy the backup file to amazon S3 storage, run  the `aws configure` command, This would ask for your aws access and secret key.
+    5. To deploy the backup file to Amazon S3 storage, run the `aws configure` command, This would ask for your aws access and secret key.
     6. Create a new `s3 bucket` to save the backup's by running the command below
         ```
-        aws s3 mb s3://my-backup-bucket
+        aws s3 mb s3://your-bucket-name
         ```
-    7. With this in place, we want to make sure our backup is uploaded regulary. Run the `crontab -e` command again and add the code below to it
+    7. With this in place, we want to make sure our backup is uploaded regularly. Run the `crontab -e` command again and add the code below to the file
         ```
-        59 23 * * * /home/ubuntu/.local/bin/aws s3 cp backups  s3://my-first-backupsss/ --recursive
+        59 23 * * * /home/ubuntu/.local/bin/aws s3 cp backups  s3://your-bucket-name/ --recursive
         ```
 
-        This would always upload our backup data to AWS S3 everyday at 23:59 hours
+        This would always upload our backup data to AWS S3 every day at 23:59 hours
 
 

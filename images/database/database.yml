@@ -4,12 +4,12 @@
   remote_user: ubuntu
 
   vars:
-    db_user: "drupaluser"
-    db_password: "Demo_compucorp1234"
-    civicrm_db_name: "civicrm"
-    drupal_db_name: "drupal"
-    priv: "drupal.*:ALL/civicrm.*:ALL"
-    root_db_password: "Update_rootpassword1234"
+    db_user: "database_user"
+    db_password: "database_password"
+    civicrm_db_name: "Civicrm_database_name"
+    drupal_db_name: "Drupal_database_name"
+    priv: "Drupal_database_name.*:ALL/Civicrm_database_name.*:ALL"
+    root_db_password: "Your_root_password"
   
   roles:
     - setupMysql

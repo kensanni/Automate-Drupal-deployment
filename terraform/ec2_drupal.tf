@@ -1,4 +1,4 @@
-
+// Get the drupal image 
 data "aws_ami" "drupal" {
   most_recent = true
 
@@ -13,6 +13,7 @@ data "aws_ami" "drupal" {
   }
 }
 
+// Create the drupal instance using the drupal image
 resource "aws_instance" "web_instance" {
   ami   = "${data.aws_ami.drupal.id}"
   instance_type = "${var.instance_type}"

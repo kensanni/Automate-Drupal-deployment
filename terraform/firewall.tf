@@ -12,6 +12,7 @@ resource "aws_security_group" "drupal_sg" {
     cidr_blocks  = ["0.0.0.0/0"]
   }
 
+  // Allows connection on port 80(HTTP) from anywhere
   ingress {
     from_port   = 80
     to_port     = 80
@@ -19,6 +20,7 @@ resource "aws_security_group" "drupal_sg" {
     cidr_blocks  = ["0.0.0.0/0"]
   }
 
+  // Allows connection on port 443 (HTTPS) from anywhere
   ingress {
     from_port   = 443
     to_port     = 443
@@ -26,6 +28,7 @@ resource "aws_security_group" "drupal_sg" {
     cidr_blocks  = ["0.0.0.0/0"]
   }
 
+  // Allows connection on port 3306(MySQL) from anywhere
   ingress {
     from_port   = 3306
     to_port     = 3306
