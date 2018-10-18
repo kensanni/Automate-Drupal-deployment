@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: true
+  remote_user: ubuntu
+
+  vars:
+    db_user: "drupaluser"
+    db_password: "Demo_compucorp1234"
+    civicrm_db_name: "civicrm"
+    drupal_db_name: "drupal"
+    priv: "drupal.*:ALL/civicrm.*:ALL"
+    root_db_password: "Update_rootpassword1234"
+  
+  roles:
+    - setupMysql
+    - secureMysql
+
+

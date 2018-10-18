@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: true
+  remote_user: ubuntu
+  
+  roles:
+    - install
+    - securePhp
+    - nginxConfig
+    - drupalConfig

@@ -1,0 +1,14 @@
+---
+- name: Create a directory for drupal in the server directory
+  command: mkdir /usr/share/nginx/html/drupal
+- name: Move drupal files to the server directory
+  command: mv /home/ubuntu/drupal-7.60/ /usr/share/nginx/html/drupal/
+- name: Copy drupal default configuration settings as settings.php
+  command: cp /usr/share/nginx/html/drupal/drupal-7.60/sites/default/default.settings.php /usr/share/nginx/html/drupal/drupal-7.60/sites/default/settings.php
+- name: Update permission of the drupal directory
+  shell:
+    cmd: |
+        chown www-data /usr/share/nginx/html/drupal/drupal-7.60/sites/default
+        chown -R www-data /usr/share/nginx/html/drupal/drupal-7.60/sites/
+        chmod u+w /usr/share/nginx/html/drupal/drupal-7.60/sites/default/
+        chmod a+w /usr/share/nginx/html/drupal/drupal-7.60/sites/default/settings.php

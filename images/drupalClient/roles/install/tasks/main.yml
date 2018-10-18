@@ -1,0 +1,23 @@
+---
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: yes
+- name: Install MySQL server
+  apt:
+    name: mysql-server
+    state: present
+- name: Install Drush
+  apt:
+    name: drush
+    state: present
+- name: Install php processing, database and other packages
+  apt:
+    name: ['python-mysqldb', 'php-fpm', 'php-mysql', 'php-xml', 'php-mbstring', 'php7.0-gd', 'php7.0-curl', 'python-pip']
+    state: present
+- name: Install AWSCLI
+  command: pip install -U awscli
+- name: Install drupal
+  shell:
+    cmd: drush dl drupal-7.60 --destination=/home/ubuntu

@@ -1,0 +1,16 @@
+---
+- name: Remove nginx default configuration
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+- name: setup drupal virtual host for nginx
+  template:
+    src: nginx.conf
+    dest: /etc/nginx/sites-available/drupal
+- name: create symlink for drupal nginx configuration
+  file:
+    src: /etc/nginx/sites-available/drupal
+    dest: /etc/nginx/sites-enabled/drupal
+    state: link
+  notify:
+  - restart nginx

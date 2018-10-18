@@ -1,0 +1,31 @@
+---
+- name: Install MySQL server
+  apt:
+    name: mysql-server
+    state: present
+- name: Install php database packages
+  apt:
+    name: ['python-mysqldb', 'php-mysql']
+    state: present
+- name: create the drupal database
+  mysql_db:
+    name: "{{ drupal_db_name }}"
+    state: present
+- name: create the civicrm database
+  mysql_db:
+    name: "{{ civicrm_db_name }}"
+    state: present
+- name: create database user
+  mysql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_password }}"
+    priv: "{{ priv }}"
+    state: present
+    host: "%"
+- name: Allow database connection from any IP
+  lineinfile:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: '^bind-address            = 127.0.0.1'
+    line: 'bind-address            = 0.0.0.0'
+  notify:
+  - restart mysql
