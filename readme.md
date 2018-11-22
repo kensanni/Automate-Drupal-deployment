@@ -30,7 +30,7 @@ Follow the instruction below to set up this infrastructure on your AWS account.
 1. Clone the project into your local machine
     ```
     git clone 
-    cd 
+    cd project-task
     ```
 2.  Export your AWS credentials to environment variables
     ```
