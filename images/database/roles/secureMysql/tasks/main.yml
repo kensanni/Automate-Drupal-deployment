@@ -1,4 +1,6 @@
 ---
+- name: Install AWSCLI
+  command: pip install -U awscli
 - name: ensure mysql is running
   service:
     name: mysql

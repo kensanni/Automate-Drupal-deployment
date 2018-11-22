@@ -126,10 +126,10 @@ Follow the instruction below to set up this infrastructure on your AWS account.
 
         Ensure the database credentials are correct for both CiviCRM and Drupal database.
 
-        You need to `SSH` into your instance and grant this folder `/usr/share/nginx/html/drupal/drupal-7.59/sites/default` a write access
+        You need to `SSH` into your instance and grant this folder `/usr/share/nginx/html/drupal/drupal-7.60/sites/default` a write access
         ```
         ssh -i "your_ssh_key.pem" ubuntu@your_drupal_ip_address
-        sudo chmod u+w /usr/share/nginx/html/drupal/drupal-7.59/sites/default
+        sudo chmod u+w /usr/share/nginx/html/drupal/drupal-7.60/sites/default
         ```
         Refresh your browser.
 6. Setup SSL certificate for the domain. To set up HTTPS, ensure your IP address is mapped to your domain name then SSH into your server and run the command below
